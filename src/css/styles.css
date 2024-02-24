@@ -37,3 +37,17 @@ input:hover {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+img {
+  width: 220px;
+  height: 220px;
+}
