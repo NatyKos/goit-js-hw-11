@@ -1,4 +1,4 @@
-const gallery = document.querySelector('.gallery');
+export const gallery = document.querySelector('.gallery');
 function newImages({ largeImageURL, webformatURL, tags }) {
     return `<a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}"/></a>`
 };

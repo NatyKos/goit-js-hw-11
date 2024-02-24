@@ -3,12 +3,13 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { searchImages } from './js/pixabay-api';
-import { createGallery } from './js/render-function';
+import { createGallery, gallery } from './js/render-function';
 import icon from './img/icon.svg'
 
 export const form = document.querySelector('.form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    gallery.innerHTML = '';
     const QUERY = form.search.value.trim().replace(/\s/g, "+");
         if (QUERY && QUERY !== '') {       
             searchImages(QUERY)
