@@ -69,6 +69,8 @@ a {
   letter-spacing: 0.04em;
   color: #2e2f42;
 }
+
+/*анімація завантаження */
 .loader {
   font-size: 48px;
   color: #000000;
