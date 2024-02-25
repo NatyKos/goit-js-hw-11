@@ -6,31 +6,39 @@ import { searchImages } from './js/pixabay-api';
 import { createGallery, gallery } from './js/render-function';
 import icon from './img/icon.svg'
 
-export const form = document.querySelector('.form');
+const form = document.querySelector('.form');
+const loading = document.querySelector('.loading')
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     gallery.innerHTML = '';
     const QUERY = form.search.value.trim().replace(/\s/g, "+");
-        if (QUERY && QUERY !== '') {       
-            searchImages(QUERY)
-                .then(data => {
-                    if (data.total !== 0) {
-                        createGallery(data.hits)
-                        const lightbox = new SimpleLightbox('.gallery a');
-                        lightbox.refresh();
-                    } else {
-                        iziToast.show({
-                            iconUrl: icon,
-                            message: `Sorry, there are no images matching your search query. Please try again!`,
-                            messageColor: '#ffffff',
-                            color: '#FF6868',
-                            position: 'topRight',
-                            progressBarColor: '#ffffff',
-                            close: false
-                        })
-                    }
-                })
-            .catch (error => console.log(error));
+    if (QUERY && QUERY !== '') {
+        loading.classList.add('loader');
+        searchImages(QUERY)
+            .then(data => {
+                loading.classList.remove('loader')
+                if (data.total !== 0) {
+                    createGallery(data.hits);
+                    const lightbox = new SimpleLightbox('.gallery a', {
+                        captionsData: 'alt',
+                        captionDelay: 100,
+                    });
+                    lightbox.refresh();
+                } else {
+                    iziToast.show({
+                        iconUrl: icon,
+                        message: `Sorry, there are no images matching your search query. Please try again!`,
+                        messageColor: '#ffffff',
+                        color: '#FF6868',
+                        position: 'topRight',
+                        progressBarColor: '#ffffff',
+                        close: false,
+                        timeout: 2000
+                    })
+                }
+            })
+            .catch(error => console.log(error));
     }
     form.reset();
 }
