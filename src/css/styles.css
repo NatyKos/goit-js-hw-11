@@ -57,6 +57,7 @@ a {
 }
 .info-box {
   display: flex;
+  width: 260px;
 }
 .info {
   text-align: center;
