@@ -12,10 +12,10 @@ const loading = document.querySelector('.loading')
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     gallery.innerHTML = '';
-    const QUERY = form.search.value.trim().replace(/\s/g, "+");
-    if (QUERY && QUERY !== '') {
+    const query = form.search.value.trim().replace(/\s/g, "+");
+    if (query && query !== '') {
         loading.classList.add('loader');
-        searchImages(QUERY)
+        searchImages(query)
             .then(data => {
                 loading.classList.remove('loader')
                 if (data.total !== 0) {
@@ -34,11 +34,22 @@ form.addEventListener('submit', (event) => {
                         position: 'topRight',
                         progressBarColor: '#ffffff',
                         close: false,
-                        timeout: 2000
+                        timeout: 5000
                     })
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error =>( iziToast.show({
+                iconUrl: icon,
+                message: `Sorry, there is a problem - ${error}!`,
+                messageColor: '#ffffff',
+                color: '#FF7F50',
+                position: 'topRight',
+                progressBarColor: '#ffffff',
+                close: false,
+                timeout: 5000
+            }),
+            console.log(error),
+            loading.classList.remove('loader')));
     }
     form.reset();
 }
