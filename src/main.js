@@ -50,6 +50,8 @@ form.addEventListener('submit', (event) => {
             }),
             console.log(error),
             loading.classList.remove('loader')));
+    } else {
+        return;
     }
     form.reset();
 }
